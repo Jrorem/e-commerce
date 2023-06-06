@@ -28,6 +28,8 @@ Category.init(
   }
 );
 
-Category.hasMany(Product)
+Category.hasMany(Product, {
+foreignKey: productId,
+})
 
 module.exports = Category;

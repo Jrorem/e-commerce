@@ -36,7 +36,12 @@ ProductTag.init(
   }
 );
 
-Product.hasMany(Tag);
-Tag.hasMany(Product);
+Product.hasMany(Tag, {
+  foreignKey: tagId,
+});
+
+Tag.hasMany(Product, {
+  foreignKey: productId,
+});
 
 module.exports = ProductTag;
