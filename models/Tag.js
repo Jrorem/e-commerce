@@ -25,4 +25,6 @@ Tag.init(
   }
 );
 
+Tag.belongsToMany(Product);
+
 module.exports = Tag;

@@ -36,4 +36,7 @@ ProductTag.init(
   }
 );
 
+Product.hasMany(Tag);
+Tag.hasMany(Product);
+
 module.exports = ProductTag;

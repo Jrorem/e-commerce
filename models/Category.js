@@ -28,4 +28,6 @@ Category.init(
   }
 );
 
+Category.hasMany(Product)
+
 module.exports = Category;

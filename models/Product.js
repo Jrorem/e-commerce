@@ -52,4 +52,7 @@ Product.init(
   }
 );
 
+Product.belongsTo(Category);
+Product.belongsToMany(Tag);
+
 module.exports = Product;
