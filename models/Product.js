@@ -2,7 +2,7 @@
 const { Model, DataTypes } = require('sequelize');
 // import our database connection from config.js
 const sequelize = require('../config/connection');
-
+const Category = require('../models/Category')
 // Initialize Product model (table) by extending off Sequelize's Model class
 class Product extends Model {}
 
@@ -10,17 +10,17 @@ class Product extends Model {}
 Product.init(
   {
     id: {
-      type: dataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
      },
      product_name: {
-      type: DataTypes.string,
+      type: DataTypes.STRING,
       allowNull: false,
      },
      price: {
-      type: DataTypes.decimal(6,2),
+      type: DataTypes.DECIMAL(6,2),
       allowNull: false,
       validate: {
         isDecmial: true
@@ -35,7 +35,7 @@ Product.init(
       },
      },
      category_id: {
-      type: DataTypes.Integer,
+      type: DataTypes.INTEGER,
       references: {
         model: 'category',
         key: 'id'
@@ -52,12 +52,8 @@ Product.init(
   }
 );
 
-Product.belongsTo(Category, {
-  foreignKey: categoryId,
-});
 
-Product.belongsToMany(Tag, {
-  foreignKey: tagId,
-});
+
+
 
 module.exports = Product;

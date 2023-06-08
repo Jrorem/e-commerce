@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection.js');
-
+const Product = require('../models/Product')
 class Category extends Model {}
 
 Category.init(
@@ -13,7 +13,7 @@ Category.init(
       autoIncrement: true,
     },
     category_name: {
-      type: DataTypes.String,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     
@@ -28,8 +28,6 @@ Category.init(
   }
 );
 
-Category.hasMany(Product, {
-foreignKey: productId,
-})
+
 
 module.exports = Category;

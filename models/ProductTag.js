@@ -1,26 +1,27 @@
 const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection');
-
+const Tag = require('../models/Tag')
+const Product = require('../models/Product')
 class ProductTag extends Model {}
 
 ProductTag.init(
   {
     id:{
-      type: DataTypes.Integer,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement : true
     },
     product_id:{
-      type: DataTypes.Integer,
+      type: DataTypes.INTEGER,
       references:{
         model: 'product',
         key: 'id'
       },
     },
     tag_id:{
-      type:DataTypes.Integer,
+      type:DataTypes.INTEGER,
       references:{
         model: 'Tag',
         key: 'id'
@@ -36,12 +37,6 @@ ProductTag.init(
   }
 );
 
-Product.hasMany(Tag, {
-  foreignKey: tagId,
-});
 
-Tag.hasMany(Product, {
-  foreignKey: productId,
-});
 
 module.exports = ProductTag;
