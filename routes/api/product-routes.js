@@ -6,9 +6,9 @@ router.get('/api/products', (req, res) => {
   res.send('endpoint')
 });
 // get all products
-router.get('/api/products', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const allProducts = await Tag.findAll({
+    const allProducts = await Product.findAll({
       include: [{ model: Category, model: Tag}],
       })
       res.status(200).json(allProducts);
@@ -36,7 +36,16 @@ router.get('/:id', async (req, res) => {
 });
 
 // create new product
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+  try {
+    const newProduct = await Product.create({
+       id: req.body.id,
+       name: req.body.name,
+     })
+     res.status(200).json(newProduct)
+   } catch (err) {
+     res.status(400).json(err);
+   }
   /* req.body should look like this...
     {
       product_name: "Basketball",

@@ -6,7 +6,7 @@ router.get('/api/categories', (req, res) => {
   res.send('endpoint')
 });
 
-router.get('/api/categories', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const allCategories = await Category.findAll({
       include: [{ model: Product}],
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
   try {
  const newCategory = await Category.create({
     id: req.body.id,
-    name: req.body.name,
+    category_name: req.body.category_name,
   })
   res.status(200).json(newCategory)
 } catch (err) {
@@ -50,7 +50,7 @@ router.put('/:id', async (req, res) => {
   try{
     const updateCategory = await Category.put({
     id: req.body.id,
-    name: req.body.name
+    category_name: req.body.name
   });
   res.status(200).json(updateCategory)
   } catch (err) {
@@ -59,6 +59,7 @@ router.put('/:id', async (req, res) => {
   });
 
 router.delete('/:id', async (req, res) => {
+  console.log("string")
   try {
     const deleteCategory = await Category.destroy({
       where: {
@@ -71,7 +72,7 @@ router.delete('/:id', async (req, res) => {
     }
     res.status(200).json(deleteCategory);
     } catch (err) {
-      res.status(500),json(err)
+      res.status(500).json(err)
     }
 });
 

@@ -6,12 +6,12 @@ router.get('/api/tags', (req, res) => {
   res.send('endpoint')
 });
 
-router.get('/api/tags', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const allTags = await Tag.findAll({
       include: [{ model: Product}],
       })
-      res.status(200).json(allCategories);
+      res.status(200).json(allTags);
   } catch (err) {
     res.status(500).json(err)
   }
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try{
-    const updateTag = await Category.put({
+    const updateTag = await Tag.put({
     id: req.body.id,
     name: req.body.name
   });
@@ -60,13 +60,13 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const deleteTag = await Category.destroy({
+    const deleteTag = await Tag.destroy({
       where: {
         id: req.params.id,
       }
     })
     if (!deleteTag) {
-      res.status(404).json({message: 'no category found with that id'})
+      res.status(404).json({message: 'no tag found with that id'})
       return;
     }
     res.status(200).json(deleteTag);
