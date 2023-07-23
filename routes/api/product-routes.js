@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 // get one product
 router.get('/:id', async (req, res) => {
   try {
-    const oneProduct = await Tag.findByPk(req.params.id, {
+    const oneProduct = await Product.findByPk(req.params.id, {
       include: [{ model: Category, model: Tag }],
     });
 
@@ -29,23 +29,26 @@ router.get('/:id', async (req, res) => {
       return;
     }
 
-    res.status(200).json(oneTag);
+    res.status(200).json(oneProduct);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
 // create new product
-router.post('/', async (req, res) => {
-  try {
-    const newProduct = await Product.create({
-       id: req.body.id,
-       name: req.body.name,
-     })
-     res.status(200).json(newProduct)
-   } catch (err) {
-     res.status(400).json(err);
-   }
+router.post('/', (req, res) => {
+  // try {
+  //   const newProduct = await Product.create({
+       
+  //      product_name: req.body.product_name,
+  //      price: req.body.price,
+  //      stock: req.body.stock,
+  //      category_id: req.body.category_id
+  //    })
+  //    res.status(200).json(newProduct)
+  //  } catch (err) {
+  //    res.status(400).json(err);
+  //  }
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -61,7 +64,7 @@ router.post('/', async (req, res) => {
         const productTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
             product_id: product.id,
-            tag_id,
+            tag_id
           };
         });
         return ProductTag.bulkCreate(productTagIdArr);
@@ -81,7 +84,7 @@ router.put('/:id', (req, res) => {
   // update product data
   Product.update(req.body, {
     where: {
-      id: req.params.id,
+      id: req.params.id
     },
   })
     .then((product) => {
@@ -120,18 +123,18 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const deleteProduct = await Category.destroy({
+    const deleteProduct = await Product.destroy({
       where: {
         id: req.params.id,
       }
     })
     if (!deleteProduct) {
-      res.status(404).json({message: 'no category found with that id'})
+      res.status(404).json({message: 'no product found with that id'})
       return;
     }
     res.status(200).json(deleteProduct);
     } catch (err) {
-      res.status(500),json(err)
+      res.status(500).json(err)
     }
 });
 

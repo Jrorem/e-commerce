@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
-
 router.get('/api/categories', (req, res) => {
   res.send('endpoint')
 });
@@ -37,7 +36,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
  const newCategory = await Category.create({
-    id: req.body.id,
+    
     category_name: req.body.category_name,
   })
   res.status(200).json(newCategory)
@@ -46,20 +45,18 @@ router.post('/', async (req, res) => {
 }
 });
 
-router.put('/:id', async (req, res) => {
-  try{
-    const updateCategory = await Category.put({
-    id: req.body.id,
-    category_name: req.body.name
-  });
-  res.status(200).json(updateCategory)
-  } catch (err) {
-    res.status(400).json(err);
-  }
+router.put('/:id',  (req, res) => {
+
+    Category.update(req.body, {
+      where: { id: req.params.id},
+    })
+    .then((category) => res.status(200).json(category))
+    .catch((err) => res.status(400).json(err))
+    
+  
   });
 
-router.delete('/:id', async (req, res) => {
-  console.log("string")
+router.delete('/:id', async (req, res) => { 
   try {
     const deleteCategory = await Category.destroy({
       where: {
